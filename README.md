@@ -9,7 +9,7 @@ A benchmarking suite for evaluating product-formula Hamiltonian simulation algor
 The primary validation model is a 1D Transverse-Field Ising Model ($H = -J \sum Z_i Z_{i+1} - h \sum X_i$). The plot below demonstrates the asymptotic scaling difference between first-order and second-order product formulas as the number of time slices ($r$) increases.
 
 ![TFIM Scaling Convergence](results/tfim_scaling.png)
-*Convergence of spectral norm error $||U_{exact} - U_{approx}||_2$ for a 4-qubit TFIM ($J=1.0$, $h=0.7$, $t=1.0$). First-order Lie-Trotter exhibits $O(1/r)$ scaling, while second-order Suzuki-Trotter achieves $O(1/r^2)$ scaling.*
+Convergence of spectral norm error $\lVert U_{exact} - U_{approx} \rVert_2$ for a 4-qubit TFIM ($J=1.0$, $h=0.7$, $t=1.0$). First-order Lie-Trotter exhibits $\mathcal{O}(1/r)$ scaling, while second-order Suzuki-Trotter achieves $\mathcal{O}(1/r^2)$ scaling.
 
 ## Quickstart
 
