@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hamsim"
+version = "0.1.0"
+description = "Benchmarking product-formula Hamiltonian simulation in Qiskit"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "qiskit", "qiskit-aer", "qiskit-ibm-runtime",
+  "numpy", "scipy", "matplotlib", "pandas", "pyyaml", "pylatexenc",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "jupyterlab", "nbconvert"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: long-running tests"]
+
+[tool.ruff]
+line-length = 100

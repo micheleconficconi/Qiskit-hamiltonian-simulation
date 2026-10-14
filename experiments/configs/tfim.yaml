@@ -1,0 +1,11 @@
+model:
+  name: "TFIM"
+  num_qubits: 4
+  J: 1.0
+  h: 0.7
+simulation:
+  time: 1.0
+  max_steps: 20
+  step_interval: 2
+output:
+  filename: "benchmark_tfim.csv"

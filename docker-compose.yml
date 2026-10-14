@@ -1,0 +1,19 @@
+services:
+  bench:
+    build: .
+    volumes:
+      - ./results:/app/results
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./experiments:/app/experiments
+    env_file:
+      - .env
+    command: pytest -q -m "not slow"
+    
+  jupyter:
+    build: .
+    ports: ["8888:8888"]
+    volumes: [".:/app"]
+    env_file:
+      - .env
+    command: jupyter lab --ip=0.0.0.0 --no-browser --allow-root
