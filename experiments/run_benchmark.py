@@ -7,12 +7,19 @@ from qiskit.quantum_info import Operator
 
 from hamsim.models import get_tfim_hamiltonian
 from hamsim.exact import exact_evolution_unitary
-from hamsim.algorithms import get_trotter_circuit
+from hamsim.algorithms import get_trotter_circuit, get_qdrift_circuit
 
 def calc_error(H, t, steps, order):
     """Calculates the spectral norm error of the Trotter approximation."""
     exact_U = exact_evolution_unitary(H, t)
     qc = get_trotter_circuit(H, t, steps, order)
+    approx_U = Operator(qc).data
+    return np.linalg.norm(exact_U - approx_U, ord=2)
+
+def calc_qdrift_error(H, t, steps, seed=42):
+    """Calculates the spectral norm error of the qDRIFT approximation."""
+    exact_U = exact_evolution_unitary(H, t)
+    qc = get_qdrift_circuit(H, t, steps, seed)
     approx_U = Operator(qc).data
     return np.linalg.norm(exact_U - approx_U, ord=2)
 
@@ -39,13 +46,15 @@ def main():
     for steps in steps_range:
         err_1 = calc_error(H, t, steps, order=1)
         err_2 = calc_error(H, t, steps, order=2)
+        err_qdrift = calc_qdrift_error(H, t, steps, seed=42)
         
         results.append({
             "steps": steps, 
             "trotter_order_1_error": err_1, 
-            "suzuki_order_2_error": err_2
+            "suzuki_order_2_error": err_2,
+            "qdrift_error": err_qdrift
         })
-        print(f"Steps: {steps:02d} | 1st Order Error: {err_1:.6f} | 2nd Order Error: {err_2:.6f}")
+        print(f"Steps: {steps:02d} | 1st Order: {err_1:.4f} | 2nd Order: {err_2:.4f} | qDRIFT: {err_qdrift:.4f}")
         
     df = pd.DataFrame(results)
     out_path = Path("results") / config['output']['filename']
