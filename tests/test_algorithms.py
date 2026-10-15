@@ -9,7 +9,7 @@ from hamsim.models import get_tfim_hamiltonian
 
 
 def trotter_error(H, t, steps, order):
-    """Calculates the spectral norm of the difference between exact and approximate evolution."""
+    """Calculates the spectral norm of the difference between exact and approximate evolution"""
     exact_U = exact_evolution_unitary(H, t)
     qc = get_trotter_circuit(H, t, steps, order)
     approx_U = Operator(qc).data
@@ -24,7 +24,7 @@ def test_trotter_error_decreases_with_steps():
 
 
 def test_suzuki_better_than_trotter():
-    """Verify that second-order Suzuki is more accurate than first-order Trotter."""
+    """Verify that second-order Suzuki is more accurate than first-order Trotter"""
     H = get_tfim_hamiltonian(num_qubits=4, J=1.0, h=0.7)
     err_1st = trotter_error(H, t=1.0, steps=4, order=1)
     err_2nd = trotter_error(H, t=1.0, steps=4, order=2)
@@ -32,7 +32,7 @@ def test_suzuki_better_than_trotter():
 
 
 def test_qdrift_reproducibility():
-    """Verify that qDRIFT circuits are exactly reproducible with a fixed seed."""
+    """Verify that qDRIFT circuits are exactly reproducible with a fixed seed"""
     H = get_tfim_hamiltonian(num_qubits=4, J=1.0, h=0.7)
 
     # Generate two independent circuits using the same seed

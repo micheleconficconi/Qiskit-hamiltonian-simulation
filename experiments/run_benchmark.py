@@ -12,7 +12,7 @@ from hamsim.models import get_tfim_hamiltonian
 
 
 def calc_error(H, t, steps, order):
-    """Calculates the spectral norm error of the Trotter approximation."""
+    """Calculates the spectral norm error of the Trotter approximation"""
     exact_U = exact_evolution_unitary(H, t)
     qc = get_trotter_circuit(H, t, steps, order)
     approx_U = Operator(qc).data
@@ -20,7 +20,7 @@ def calc_error(H, t, steps, order):
 
 
 def calc_qdrift_error(H, t, steps, seed=42):
-    """Calculates the spectral norm error of the qDRIFT approximation."""
+    """Calculates the spectral norm error of the qDRIFT approximation"""
     exact_U = exact_evolution_unitary(H, t)
     qc = get_qdrift_circuit(H, t, steps, seed)
     approx_U = Operator(qc).data

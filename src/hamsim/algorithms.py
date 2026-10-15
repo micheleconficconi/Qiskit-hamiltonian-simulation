@@ -8,10 +8,8 @@ from qiskit.synthesis import LieTrotter, SuzukiTrotter
 def get_trotter_circuit(
     hamiltonian: SparsePauliOp, time: float, steps: int, order: int = 1
 ) -> QuantumCircuit:
-    """
-    Constructs the quantum circuit for Hamiltonian simulation using
-    product formulas (First-order Lie-Trotter or higher-order Suzuki-Trotter).
-    """
+    """Constructs the quantum circuit for Hamiltonian simulation using
+    product formulas (First-order Lie-Trotter or higher-order Suzuki-Trotter)"""
     evo_gate = PauliEvolutionGate(hamiltonian, time=time)
 
     if order == 1:
@@ -29,9 +27,7 @@ def get_trotter_circuit(
 def get_qdrift_circuit(
     hamiltonian: SparsePauliOp, time: float, steps: int, seed: int | None = None
 ) -> QuantumCircuit:
-    """
-    Constructs the quantum circuit for Hamiltonian simulation using the stochastic qDRIFT protocol.
-    """
+    """Constructs the quantum circuit for Hamiltonian simulation using the stochastic qDRIFT protocol"""
     if seed is not None:
         np.random.seed(seed)
 

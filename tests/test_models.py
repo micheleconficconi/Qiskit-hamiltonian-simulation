@@ -7,7 +7,7 @@ from hamsim.models import get_tfim_hamiltonian
 
 
 def test_tfim_hermitian():
-    """Verify that the generated Hamiltonian is a Hermitian matrix (H = H^dagger)."""
+    """Verify that the generated Hamiltonian is a Hermitian matrix (H = H^dagger)"""
     H = get_tfim_hamiltonian(num_qubits=4)
     mat = H.to_matrix()
 
@@ -15,7 +15,7 @@ def test_tfim_hermitian():
 
 
 def test_exact_unitary():
-    """Verify that the exact evolution produces a unitary matrix (U @ U^dagger = I)."""
+    """Verify that the exact evolution produces a unitary matrix (U @ U^dagger = I)"""
     num_qubits = 3
     H = get_tfim_hamiltonian(num_qubits)
     U = exact_evolution_unitary(H, time=1.0)
