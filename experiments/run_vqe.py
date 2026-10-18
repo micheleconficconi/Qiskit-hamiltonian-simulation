@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+import numpy as np
 
 from hamsim.exact import exact_ground_state_energy
 from hamsim.models import get_tfim_hamiltonian
@@ -19,7 +20,13 @@ def main():
     ansatz = get_vqe_ansatz(num_qubits, reps=2)
     print(f"Ansatz initialized with {ansatz.num_parameters} optimizable parameters.")
 
-    vqe_energy, _optimal_params, history = run_vqe_simulation(H, ansatz, maxiter=150)
+    vqe_energy, optimal_params, history = run_vqe_simulation(H, ansatz, maxiter=150)
+    print(f"VQE Optimized Energy:      {vqe_energy:.6f}")
+    print(f"Energy Error (Delta):      {abs(exact_energy - vqe_energy):.6f}")
+
+    out_dir = Path("results")
+    out_dir.mkdir(exist_ok=True)
+    np.save(out_dir / "vqe_optimal_params.npy", optimal_params)    
     print(f"VQE Optimized Energy:      {vqe_energy:.6f}")
     print(f"Energy Error (Delta):      {abs(exact_energy - vqe_energy):.6f}")
 
