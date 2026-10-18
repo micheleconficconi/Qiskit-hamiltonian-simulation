@@ -79,7 +79,17 @@ To run circuits on actual IBM Quantum hardware, create a `.env` file in the root
 ```text
 QISKIT_IBM_TOKEN=your_token_here
 ```
-The Docker environment will automatically inject this into Qiskit Runtime sessions. Execute `run_hardware.py` to compile circuits to the target ISA and submit them to the least busy free-tier QPU via `EstimatorV2`.
+The Docker environment will automatically inject this into Qiskit Runtime sessions. 
+To compile circuits to the target ISA and submit them to the least busy free-tier QPU:
+
+1) Run Trotter time evolution on IBM Quantum hardware: 
+```bash
+docker compose run --rm bench python experiments/run_hardware.py --mode trotter --steps 2
+```
+2) Evaluate trained VQE optimal parameters on IBM Quantum hardware: 
+```bash
+docker compose run --rm bench python experiments/run_hardware.py --mode vqe
+```
 
 Once your job is submitted, retrieve the hardware execution results using the returned Job ID:
 ```bash
