@@ -1,0 +1,15 @@
+{
+  "job_id": "dbadfek24mrc73857hk0",
+  "mode": "vqe",
+  "backend": "ibm_marrakesh",
+  "resilience_level": 1,
+  "depth": 17,
+  "ops": {
+    "sx": 24,
+    "rz": 24,
+    "cz": 6
+  },
+  "ideal_energy": -3.756504899401623,
+  "hardware_energy": -3.6032050489240106,
+  "standard_error": 0.030989801798091524
+}
