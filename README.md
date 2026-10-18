@@ -9,7 +9,7 @@ A benchmarking suite for evaluating product-formula Hamiltonian simulation algor
 The primary validation model is a 1D Transverse-Field Ising Model ($H = -J \sum Z_i Z_{i+1} - h \sum X_i$). The plot below demonstrates the asymptotic scaling difference between first-order and second-order product formulas, alongside the stochastic qDRIFT protocol, as the number of time slices ($r$) increases.
 
 ![TFIM Scaling Convergence](results/tfim_scaling.png)
-*Convergence of spectral norm error $\lVert U_{exact} - U_{approx} \rVert_2$ for a 4-qubit TFIM ($J=1.0$, $h=0.7$, $t=1.0$). First-order Lie-Trotter exhibits $\mathcal{O}(1/r)$ scaling, while second-order Suzuki-Trotter achieves $\mathcal{O}(1/r^2)$ scaling. qDRIFT error is dominated by sampling variance.*
+*Convergence of spectral norm error* $\lVert U_{exact} - U_{approx} \rVert_2$ *for a 4-qubit TFIM (*$J=1.0$, $h=0.7$, $t=1.0$*). First-order Lie-Trotter exhibits* $\mathcal{O}(1/r)$ *scaling, while second-order Suzuki-Trotter achieves* $\mathcal{O}(1/r^2)$ *scaling. qDRIFT error is dominated by sampling variance.*
 
 ## Hybrid Quantum-Classical Workflows (VQE)
 In addition to time evolution, this repository implements the Variational Quantum Eigensolver (VQE) to compute the ground-state energy of the TFIM. Utilizing Qiskit Primitives (`StatevectorEstimator`) and SciPy's COBYLA optimizer, the hybrid loop trains a parameterized hardware-efficient ansatz to approximate the exact minimum eigenvalue.
@@ -58,6 +58,7 @@ docker compose run --rm bench python experiments/plot_vqe.py
 .
 ├── experiments/
 │   ├── configs/            # YAML files defining experimental parameters
+│   ├── fetch_hardware_results.py # IBM Quantum job retrieval script
 │   ├── run_benchmark.py    # Time evolution orchestration script
 │   ├── run_hardware.py     # IBM Quantum backend execution script
 │   ├── run_vqe.py          # Hybrid VQE optimization script
@@ -79,6 +80,11 @@ To run circuits on actual IBM Quantum hardware, create a `.env` file in the root
 QISKIT_IBM_TOKEN=your_token_here
 ```
 The Docker environment will automatically inject this into Qiskit Runtime sessions. Execute `run_hardware.py` to compile circuits to the target ISA and submit them to the least busy free-tier QPU via `EstimatorV2`.
+
+Once your job is submitted, retrieve the hardware execution results using the returned Job ID:
+```bash
+docker compose run --rm bench python experiments/fetch_hardware_results.py --job-id <YOUR_JOB_ID>
+```
 
 ## License
 Distributed under the Apache 2.0 License. See `LICENSE` for more information.
